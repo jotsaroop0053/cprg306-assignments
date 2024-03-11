@@ -9,15 +9,14 @@ const NewItem = ({ onAddItem }) => {
     e.preventDefault();
 
     
-    const id = Math.random().toString(36).substr(2, 9);
+    const id = Math.random().toString(36).slice(2, 9);
 
-    
     const item = { id, name, quantity, category };
 
     
     onAddItem(item);
 
-   
+    
     setName('');
     setQuantity(1);
     setCategory('produce');
