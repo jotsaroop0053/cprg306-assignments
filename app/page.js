@@ -1,13 +1,32 @@
-import Image from 'next/image'
-import Link from 'next/link'
-export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items- p-24 ">
-      <Link href="./week-2">Week-2 Assignment</Link>
-      <Link href="./week-3">Week-3 Assignment</Link>
-      <Link href="./week-4">Week-4 Assignment</Link>
-      <Link href="./week-5">Week-5 Assignment</Link>
-      <Link href="./week-6">Week-6 Assignment</Link>
-    </main>
-  )
+"use client";
+import React, { useState } from "react";
+import ItemList from "./item-list";
+import NewItem from "./new-item";
+import MealIdeas from "./meal-ideas"; // Importing MealIdeas component
+import itemsData from "./item.json";
+
+export default function Page() {
+    const [items, setItems] = useState(itemsData);
+    const [selectedItemName, setSelectedItemName] = useState("");
+
+    // Event handler for selecting an item
+    const handleItemSelect = (item) => {
+        // Clean up the item name by removing size and emoji
+        const cleanedItemName = item.name.split(',')[0].trim().replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]|\uD83D[\uDE80-\uDEFF]|�[�-�])/g, '');
+        setSelectedItemName(cleanedItemName);
+    };
+
+    return (
+        <main className="flex bg-slate-900">
+            <div className="mr-10">
+                <h1 className="text-xl font-bold text-white">Shopping List</h1>
+                <NewItem onAddItem={(newItem) => setItems((prevItems) => [...prevItems, newItem])} />
+                <ItemList items={items} onItemSelect={handleItemSelect} />
+            </div>
+            <div>
+               
+                <MealIdeas ingredient={selectedItemName} /> 
+            </div>
+        </main>
+    );
 }
