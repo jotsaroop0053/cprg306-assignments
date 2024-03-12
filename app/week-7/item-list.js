@@ -43,7 +43,7 @@ const ItemList = ({ items, onItemSelect }) => {
               name={item.name} 
               quantity={item.quantity} 
               category={item.category} 
-              onSelect={() => onItemSelect(item)} // Pass onSelect prop to Item component
+              onSelect={() => onItemSelect(item)} 
             />
           ))}
         </ul>
